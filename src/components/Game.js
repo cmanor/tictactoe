@@ -8,35 +8,45 @@ const style = {
 }
 
 const Game =() => {
-    const [board, setBoard] = useState(Array(9).fill(null));
+    const [history, setHistory] = useState([Array(9).fill(null)]);
+    const [stepNumber, setStepNumber] = useState(0);
     const [xIsNext, setXIsNext] = useState(true);
-    const winner = calculateWinner(board);
+    const winner = calculateWinner(history[stepNumber]);
 
     const handleClick = i => {
+        const timeInHistory = history.slice(0,stepNumber + 1);
+        const current = timeInHistory[stepNumber];
+        const squares = [...current];
         //we we use a copy of the board so we don't mutate the original state
-        const boardCopy = [...board];
         // If user clicks occupied square or if game is won, do nothing
-        if (winner || boardCopy[i]) return;
+        if (winner || squares[i]) return;
         //put an X or O in the clicked square
-        boardCopy[i] = xIsNext ? 'Deez' : 'Nuts';
-        setBoard(boardCopy);
+        squares[i] = xIsNext ? 'X' : 'O';
+        setHistory([...timeInHistory, squares]);
+        setStepNumber(timeInHistory.length);
         setXIsNext(!xIsNext);
     };
 
-    const jumpTo = () => {
-
+    const jumpTo = step => {
+        setStepNumber(step);
+        setXIsNext(step % 2 === 0)
     };
 
-    const renderMoves = () => 
-         <button onClick={() => setBoard(Array(9).fill(null))}>
-        New Game
-        </button>
-    ;
+    const renderMoves = () => (
+        history.map((_step, move) => {
+            const destination = move ? `Go to move#${move}` : 'Go to start';
+            return (
+                <li key={move}>
+                    <button onClick={() => jumpTo(move)}>{destination}</button>
+                </li>
+            )
+        })
+    );
 
     return (
         //you can wrap elements in fragments if you don't want to render the element
         <>
-        <Board squares = {board} onClick={handleClick} />
+        <Board squares = {history[stepNumber]} onClick={handleClick} />
         <div style={style}>
             <p>{winner ? 'Winner: ' + winner : 'Next Player :' + (xIsNext ? 'X' : 'O')}</p>
             {renderMoves()}
