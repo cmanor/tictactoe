@@ -34,7 +34,7 @@ const Game =() => {
 
     const renderMoves = () => (
         history.map((_step, move) => {
-            const destination = move ? `Go to move#${move}` : 'Go to start';
+            const destination = move ? `Go to move#${move}` : 'New Game';
             return (
                 <li key={move}>
                     <button onClick={() => jumpTo(move)}>{destination}</button>
@@ -48,7 +48,7 @@ const Game =() => {
         <>
         <Board squares = {history[stepNumber]} onClick={handleClick} />
         <div style={style}>
-            <p>{winner ? 'Winner: ' + winner : 'Next Player :' + (xIsNext ? 'X' : 'O')}</p>
+            <p>{winner ? 'Winner: ' + winner : (xIsNext ? 'X' : 'O') + "'s turn"}</p>
             {renderMoves()}
         </div>
         </>

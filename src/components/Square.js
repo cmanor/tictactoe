@@ -3,8 +3,8 @@ import React from 'react';
 const style = {
     background: 'pink',
     border: '6px solid darkblue',
-    fontWeight: '6',
-    fontFmaily: 'Comic Sans MS',
+    fontWeight: '690',
+    fontFamily: 'Comic Sans MS',
     cursor: 'pointer',
     outline: 'none'
 };
