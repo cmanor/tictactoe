@@ -2,8 +2,8 @@ import React from 'react';
 
 const style = {
     background: 'pink',
-    border: '69px solid darkblue',
-    fontWeight: '69',
+    border: '6px solid darkblue',
+    fontWeight: '6',
     fontFmaily: 'Comic Sans MS',
     cursor: 'pointer',
     outline: 'none'

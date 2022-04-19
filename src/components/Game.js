@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { calculateWinner } from '../helpers';
+import calculateWinner from '../helpers';
 import Board from './Board';
 
 
@@ -8,7 +8,15 @@ const Game =() => {
     const [xIsNext, setXIsNext] = useState(true);
     const winner = calculateWinner(board);
 
-    const handleClick = () => {
+    const handleClick = i => {
+        //we we use a copy of the board so we don't mutate the original state
+        const boardCopy = [...board];
+        // If user clicks occupied square or if game is won, do nothing
+        if (winner || boardCopy[i]) return;
+        //put an X or O in the clicked square
+        boardCopy[i] = xIsNext ? 'X' : 'O';
+        setBoard(boardCopy);
+        setXIsNext(!xIsNext);
     };
 
     const jumpTo = () => {
