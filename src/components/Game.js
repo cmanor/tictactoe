@@ -3,7 +3,7 @@ import Board from './Board';
 
 
 const Game =() => {
-    const
+    const [board, setBoard] = useState(Array(9).fill(null));
     const handleClick = () => {
 
     };
